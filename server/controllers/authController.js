@@ -16,7 +16,7 @@ export const protectedRoute = catchAsyncErr(async (req, res, next) => {
     return next(new AppError("You're Not Logged In Please Login To Access"));
   }
 
-  const jwt_token = req.headers.split(" ")[1];
+  const jwt_token = req.headers.authorization.split(" ")[1];
   const decoded = await promisify(jwt.verify)(jwt_token, process.env.JWTSECRET);
 
   if (!decoded) {
@@ -106,6 +106,8 @@ export const login = catchAsyncErr(async (req, res, next) => {
   const token = sentJwtToken(currUser._id);
 
   return res.status(200).json({
+    status: "success",
+    success: true,
     token,
   });
 });

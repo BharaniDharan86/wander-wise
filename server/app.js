@@ -3,12 +3,16 @@ import userRoutes from "../server/routes/userRoutes.js";
 import morgan from "morgan";
 import AppError from "../server/utils/appError.js";
 import globalErrHandler from "../server/controllers/errorController.js";
+import experienceRoutes from "../server/routes/experienceRoutes.js";
+import repliesRoutes from "../server/routes/repliesRoute.js";
 const app = express();
 app.use(express.json());
 app.use(morgan("dev"));
 
 //routes
 app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/experience", experienceRoutes);
+app.use("/api/v1/replies", repliesRoutes);
 
 //unhandled routes
 app.all("*", (req, res, next) => {

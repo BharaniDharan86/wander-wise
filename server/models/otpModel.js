@@ -21,4 +21,12 @@ otpSchema.pre("save", async function (next) {
 
 const Otp = mongoose.model("Otp", otpSchema);
 
+async function cleanOtps() {
+  await Otp.deleteMany({});
+}
+
+setInterval(() => {
+  cleanOtps();
+}, 3 * 60 * 1000);
+
 export default Otp;
