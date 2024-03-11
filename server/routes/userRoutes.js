@@ -4,7 +4,7 @@ import {
   signUp,
   verifyEmail,
   login,
-} from "../../server/controllers/userController.js";
+} from "../../server/controllers/authController.js";
 
 const userRoutes = express.Router();
 
