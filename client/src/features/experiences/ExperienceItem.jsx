@@ -15,11 +15,11 @@ function ExperienceItem({ FD }) {
         <h1 className="">{FD.location}</h1>
         <p>{FD.description}</p>
         <div className="flex gap-2">
-          <span className="flex items-center">
+          <span className="flex items-center cursor-pointer">
             <HiOutlineThumbUp />
             {FD.likes}
           </span>
-          <span className="flex items-center">
+          <span className="flex items-center cursor-pointer">
             <HiOutlineAnnotation onClick={() => setShowComments(true)} />
             {FD.comments.length}
           </span>

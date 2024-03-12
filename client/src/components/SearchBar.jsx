@@ -8,11 +8,15 @@ export const SearchBar = () => {
     searchTerm,
     setSearchTerm,
     handleClearSearchTerm,
+    handleSearch,
   } = useExperienceContext();
 
   return (
     <div className="w-full flex items-center justify-center">
-      <div className="w-[60%] mt-10">
+      <form
+        className="w-[60%] mt-10"
+        onSubmit={(e) => handleSearch(e, searchTerm)}
+      >
         <label
           className={`input input-bordered flex ${
             isFocused ? "scale-[1.02]" : ""
@@ -26,11 +30,16 @@ export const SearchBar = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button onClick={handleClearSearchTerm}>
-            <HiOutlineX />
-          </button>
         </label>
-      </div>
+      </form>
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          handleClearSearchTerm();
+        }}
+      >
+        <HiOutlineX />
+      </button>
     </div>
   );
 };

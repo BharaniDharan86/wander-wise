@@ -5,7 +5,15 @@ import AppError from "../server/utils/appError.js";
 import globalErrHandler from "../server/controllers/errorController.js";
 import experienceRoutes from "../server/routes/experienceRoutes.js";
 import repliesRoutes from "../server/routes/repliesRoute.js";
+import cors from "cors";
 const app = express();
+app.use(
+  cors({
+    origin: ["http://localhost:5173"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(morgan("dev"));
 

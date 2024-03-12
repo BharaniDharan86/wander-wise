@@ -1,15 +1,30 @@
 /* eslint-disable react/no-unescaped-entities */
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { InputError } from "../../components/InputError";
+import { useMutation } from "@tanstack/react-query";
+import { loginApi } from "../../services/apiAuth";
+import { toast } from "react-hot-toast";
 export const Login = () => {
   const { register, handleSubmit, formState } = useForm();
 
   const { errors } = formState;
+  const navigate = useNavigate();
 
+  const { mutate } = useMutation({
+    mutationFn: (userCredentials) => {
+      loginApi(userCredentials);
+    },
+    onSuccess: () => {
+      navigate("/experience");
+    },
+    onError: (err) => {
+      toast.error(err.message);
+    },
+  });
   //logic to handle login
   function handleLogin(data) {
-    console.log(data);
+    mutate(data);
   }
 
   return (

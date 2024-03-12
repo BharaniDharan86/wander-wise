@@ -29,9 +29,13 @@ export const readExperience = catchAsyncErr(async (req, res, next) => {
         commentsCount: { $size: "$comments" },
       },
     },
-  ]).populate({
+  ]);
+
+  /**
+   * .populate({
     path: "user",
   });
+   */
 
   res.status(200).json({
     status: "success",

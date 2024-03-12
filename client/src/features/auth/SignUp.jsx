@@ -1,14 +1,32 @@
 import { useForm } from "react-hook-form";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { InputError } from "../../components/InputError";
+import { useMutation } from "@tanstack/react-query";
+import { signUpApi } from "../../services/apiAuth";
+import toast from "react-hot-toast";
 
 export const SignUp = () => {
   const { register, getValues, formState, handleSubmit } = useForm();
   const { errors } = formState;
+  const navigate = useNavigate();
 
   //login to create new user
+
+  const { mutate } = useMutation({
+    mutationFn: (userCredentials) => {
+      signUpApi(userCredentials);
+    },
+    onSuccess: () => {
+      navigate("verifyemail");
+    },
+    onError: (err) => {
+      toast.error(err.message);
+    },
+  });
+
   function handleSignUp(data) {
     console.log(data);
+    mutate(data);
   }
   return (
     <div className="flex justify-center items-center h-screen">
@@ -98,7 +116,7 @@ export const SignUp = () => {
             <InputError errorMessage={errors?.password?.message} />
           )}
         </div>{" "}
-        <div className="mb-2">
+        {/* <div className="mb-2">
           <label className="input input-bordered flex items-center gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -126,12 +144,10 @@ export const SignUp = () => {
           {errors && errors?.confirmpassword?.message && (
             <InputError errorMessage={errors?.confirmpassword?.message} />
           )}
-        </div>{" "}
-        <NavLink to="verifyemail">
-          <button className="w-full rounded-md bg-stone-900 text-white py-2 my-3 hover:bg-stone-700 transition-colors duration-200">
-            Sign Up
-          </button>
-        </NavLink>
+        </div>{" "} */}
+        <button className="w-full rounded-md bg-stone-900 text-white py-2 my-3 hover:bg-stone-700 transition-colors duration-200">
+          Sign Up
+        </button>
         <p className="text-center mb-3">
           Already have an Account?
           <NavLink className="underline" to="/login">

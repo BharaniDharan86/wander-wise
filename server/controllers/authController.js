@@ -67,6 +67,8 @@ export const verifyEmail = catchAsyncErr(async (req, res, next) => {
   const { otp } = req.body;
   const { email, password, username, otp: otpDB } = await Otp.findOne({ otp });
 
+  console.log(otp, otpDB);
+
   if (!otpDB)
     return next(new AppError("Not Valid Otp Please Register Again", 404));
 
@@ -81,12 +83,17 @@ export const verifyEmail = catchAsyncErr(async (req, res, next) => {
 
   const token = sentJwtToken(newUser._id);
 
-  return res.status(201).json({
-    status: "success",
-    success: true,
-    message: "Signed in Successfully",
-    token,
-  });
+  return res
+    .cookie("access_token", token, {
+      withCredentials: true,
+      httpOnly: false,
+    })
+    .status(201)
+    .json({
+      status: "success",
+      success: true,
+      message: "Signed in Successfully",
+    });
 });
 
 export const login = catchAsyncErr(async (req, res, next) => {
@@ -105,9 +112,14 @@ export const login = catchAsyncErr(async (req, res, next) => {
 
   const token = sentJwtToken(currUser._id);
 
-  return res.status(200).json({
-    status: "success",
-    success: true,
-    token,
-  });
+  return res
+    .cookie("access_token", token, {
+      withCredentials: true,
+      httpOnly: false,
+    })
+    .status(200)
+    .json({
+      status: "success",
+      success: true,
+    });
 });

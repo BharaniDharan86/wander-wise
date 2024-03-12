@@ -7,7 +7,9 @@ import Register from "./pages/Register";
 import { Experience } from "./pages/Experience";
 import ExperienceProvider from "./context/ExperienceContext";
 import { PostExperience } from "./pages/PostExperience";
-
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "react-hot-toast";
+import ProtectedRoute from "./pages/ProtectedRoute";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -20,9 +22,11 @@ const router = createBrowserRouter([
   {
     path: "/experience",
     element: (
-      <ExperienceProvider>
-        <Experience />
-      </ExperienceProvider>
+      <ProtectedRoute>
+        <ExperienceProvider>
+          <Experience />
+        </ExperienceProvider>
+      </ProtectedRoute>
     ),
   },
   {
@@ -45,8 +49,37 @@ const router = createBrowserRouter([
   },
 ]);
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60 * 1000,
+    },
+  },
+});
+
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <QueryClientProvider client={queryClient}>
+        <Toaster
+          position="top-center"
+          gutter={12}
+          containerStyle={{
+            margin: "8px",
+          }}
+          toastOptions={{
+            success: {
+              duration: 3000,
+            },
+            error: {
+              duration: 5000,
+            },
+          }}
+        />
+        <RouterProvider router={router} />;
+      </QueryClientProvider>
+    </>
+  );
 }
 
 export default App;
