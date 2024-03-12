@@ -10,9 +10,7 @@ export const VerifyEmail = () => {
   const navigate = useNavigate();
 
   const { mutate } = useMutation({
-    mutationFn: (data) => {
-      verifyEmailApi(data);
-    },
+    mutationFn: (data) => verifyEmailApi(data),
     onSuccess: () => {
       navigate("/experience");
       toast.success("Registered Successfully");

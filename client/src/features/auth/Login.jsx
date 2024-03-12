@@ -5,21 +5,28 @@ import { InputError } from "../../components/InputError";
 import { useMutation } from "@tanstack/react-query";
 import { loginApi } from "../../services/apiAuth";
 import { toast } from "react-hot-toast";
+import { useCookies } from "react-cookie";
+import { Spinner } from "./../../ui/Spinner";
 export const Login = () => {
-  const { register, handleSubmit, formState } = useForm();
+  const { register, handleSubmit, formState } = useForm({
+    defaultValues: {
+      email: "bharanidharanm77@gmail.com",
+      password: "bharani_01_123",
+    },
+  });
+
+  const [cookies] = useCookies();
 
   const { errors } = formState;
   const navigate = useNavigate();
 
-  const { mutate } = useMutation({
-    mutationFn: (userCredentials) => {
-      loginApi(userCredentials);
-    },
-    onSuccess: () => {
+  const { mutate, isPending } = useMutation({
+    mutationFn: (userCredentials) => loginApi(userCredentials),
+    onSuccess: (data) => {
       navigate("/experience");
     },
     onError: (err) => {
-      toast.error(err.message);
+      toast.error(err.message || "something went wrong");
     },
   });
   //logic to handle login
@@ -87,7 +94,7 @@ export const Login = () => {
           )}
         </div>
         <button className="w-full rounded-md bg-stone-900 text-white py-2 my-3 hover:bg-stone-700 transition-colors duration-200">
-          Login
+          {isPending ? <Spinner /> : "Login"}
         </button>
         <p className="text-center mb-3">
           New to Wander Wise?

@@ -9,7 +9,9 @@ import ExperienceProvider from "./context/ExperienceContext";
 import { PostExperience } from "./pages/PostExperience";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
-import ProtectedRoute from "./pages/ProtectedRoute";
+import { ProtectedRoute } from "./pages/ProtectedRoute";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import PostExperienceForm from "./features/experiences/PostExperienceForm";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -47,6 +49,10 @@ const router = createBrowserRouter([
     path: "/postexperience",
     element: <PostExperience />,
   },
+  {
+    path: "/post",
+    element: <PostExperienceForm />,
+  },
 ]);
 
 const queryClient = new QueryClient({
@@ -77,6 +83,7 @@ function App() {
           }}
         />
         <RouterProvider router={router} />;
+        <ReactQueryDevtools />
       </QueryClientProvider>
     </>
   );

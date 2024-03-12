@@ -1,20 +1,14 @@
 import { useEffect } from "react";
-import useToken from "../hooks/useToken";
+import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
 
-const ProtectedRoute = ({ children }) => {
-  const token = useToken();
+export const ProtectedRoute = ({ children }) => {
+  const [cookies] = useCookies();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!token) {
-      toast("Please Log in To Continue");
-      return navigate("/login");
-    }
-  }, [navigate, token]);
+    if (!cookies.access_token) return navigate("/login");
+  }, [cookies.access_token, navigate]);
 
-  if (token) return children;
+  if (cookies.access_token) return children;
 };
-
-export default ProtectedRoute;

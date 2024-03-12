@@ -13,9 +13,7 @@ export const SignUp = () => {
   //login to create new user
 
   const { mutate } = useMutation({
-    mutationFn: (userCredentials) => {
-      signUpApi(userCredentials);
-    },
+    mutationFn: (userCredentials) => signUpApi(userCredentials),
     onSuccess: () => {
       navigate("verifyemail");
     },

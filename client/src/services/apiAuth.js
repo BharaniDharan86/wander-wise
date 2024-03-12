@@ -14,12 +14,14 @@ export async function loginApi(userCredentials) {
 
   const data = await response.json();
 
-  if (data.status === "Failed") throw new Error(data.message);
+  console.log(data);
+
+  if (data.status === "Failed")
+    throw new Error("User not found please provide valid email Id");
   return data;
 }
 
 export async function signUpApi(userData) {
-  console.log(userData);
   const response = await fetch(`${BASE_URL}user/signup`, {
     method: "POST",
     headers: {
@@ -31,15 +33,12 @@ export async function signUpApi(userData) {
 
   const data = await response.json();
 
-  console.log(data);
-
   if (data.status === "Failed") throw new Error(data.message);
 
   return data;
 }
 
 export async function verifyEmailApi(otp) {
-  console.log(otp);
   const response = await fetch(`${BASE_URL}user/verifyemail`, {
     method: "POST",
     headers: {
