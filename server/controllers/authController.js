@@ -121,5 +121,6 @@ export const login = catchAsyncErr(async (req, res, next) => {
     .json({
       status: "success",
       success: true,
+      token,
     });
 });

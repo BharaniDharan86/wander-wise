@@ -114,7 +114,7 @@ export const SignUp = () => {
             <InputError errorMessage={errors?.password?.message} />
           )}
         </div>{" "}
-        {/* <div className="mb-2">
+        <div className="mb-2">
           <label className="input input-bordered flex items-center gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -142,7 +142,7 @@ export const SignUp = () => {
           {errors && errors?.confirmpassword?.message && (
             <InputError errorMessage={errors?.confirmpassword?.message} />
           )}
-        </div>{" "} */}
+        </div>{" "}
         <button className="w-full rounded-md bg-stone-900 text-white py-2 my-3 hover:bg-stone-700 transition-colors duration-200">
           Sign Up
         </button>

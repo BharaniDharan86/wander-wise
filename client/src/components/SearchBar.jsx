@@ -32,14 +32,14 @@ export const SearchBar = () => {
           />
         </label>
       </form>
-      <button
+      {/* <button
         onClick={(e) => {
           e.preventDefault();
           handleClearSearchTerm();
         }}
       >
         <HiOutlineX />
-      </button>
+      </button> */}
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import catchAsyncErr from "../../server/utils/catchAsyncErr.js";
 import Experience from "../../server/models/experienceModel.js";
 import AppError from "../../server/utils/appError.js";
+import User from "../../server/models/userModel.js";
 
 export const readExperience = catchAsyncErr(async (req, res, next) => {
   const { location } = req.query;
@@ -10,26 +11,30 @@ export const readExperience = catchAsyncErr(async (req, res, next) => {
     "i"
   );
 
-  const experiences = await Experience.aggregate([
-    {
-      $match: {
-        location: regexPattern,
-      },
-    },
-    {
-      $lookup: {
-        from: "Reviews",
-        localField: "_id",
-        foreignField: "experience",
-        as: "comments",
-      },
-    },
-    {
-      $addFields: {
-        commentsCount: { $size: "$comments" },
-      },
-    },
-  ]);
+  // const experiences = await Experience.aggregate([
+  //   {
+  //     $match: {
+  //       location: regexPattern,
+  //     },
+  //   },
+  //   {
+  //     $lookup: {
+  //       from: "Reviews",
+  //       localField: "_id",
+  //       foreignField: "experience",
+  //       as: "comments",
+  //     },
+  //   },
+  //   {
+  //     $addFields: {
+  //       commentsCount: { $size: "$comments" },
+  //     },
+  //   },
+  // ]);
+
+  const experiences = await Experience.find().populate({
+    path: "user",
+  });
 
   /**
    * .populate({
@@ -40,7 +45,20 @@ export const readExperience = catchAsyncErr(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     success: true,
-    experiences,
+    data: experiences,
+  });
+});
+
+export const readSingleExperience = catchAsyncErr(async (req, res, next) => {
+  const { id } = req.params;
+  const singleExperience = await Experience.findById(id).populate("replies");
+
+  if (!singleExperience) return next(new AppError("Cannot able to find", 404));
+
+  return res.status(200).json({
+    status: "success",
+    success: true,
+    singleExperience,
   });
 });
 
@@ -90,6 +108,12 @@ export const likePost = catchAsyncErr(async (req, res, next) => {
       }
     );
 
+    await User.findByIdAndUpdate(userId, {
+      $pull: {
+        likedPosts: id,
+      },
+    });
+
     return res.status(200).json({
       status: "success",
       success: true,
@@ -107,6 +131,12 @@ export const likePost = catchAsyncErr(async (req, res, next) => {
         runValidators: true,
       }
     );
+
+    await User.findByIdAndUpdate(userId, {
+      $addToSet: {
+        likedPosts: id,
+      },
+    });
     return res.status(200).json({
       status: "success",
       success: true,

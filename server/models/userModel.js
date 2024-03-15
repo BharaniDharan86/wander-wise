@@ -9,6 +9,19 @@ const userSchema = new mongoose.Schema(
       unique: true,
     },
     password: String,
+    likedPosts: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "Experience",
+      },
+    ],
+
+    repliedPosts: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "Replies",
+      },
+    ],
   },
   {
     toJSON: true,

@@ -76,4 +76,121 @@ export const data = [
       },
     ],
   },
+  {
+    id: 2,
+    user: {
+      id: 4,
+      username: "hiker567",
+      avatar: "https://example.com/avatar4.jpg",
+    },
+    title: "Trekking in the Nilgiris",
+    description:
+      "Just completed an incredible trek through the Nilgiri Hills! The views from the top are absolutely stunning. Definitely worth the effort!",
+    image: "https://example.com/experience2.jpg",
+    date: "2024-03-09",
+    location: "Nilgiri Hills, Ooty, Tamil Nadu, India",
+    likes: 32,
+    comments: [
+      {
+        id: 3,
+        user: {
+          id: 5,
+          username: "mountainlover101",
+          avatar: "https://example.com/avatar5.jpg",
+        },
+        comment:
+          "I've been wanting to do that trek for ages! How difficult was it?",
+        date: "2024-03-10",
+      },
+      {
+        id: 4,
+        user: {
+          id: 6,
+          username: "adventureseeker2020",
+          avatar: "https://example.com/avatar6.jpg",
+        },
+        comment:
+          "The trek is challenging but the views make it totally worth it!",
+        date: "2024-03-11",
+      },
+    ],
+  },
+  {
+    id: 2,
+    user: {
+      id: 4,
+      username: "hiker567",
+      avatar: "https://example.com/avatar4.jpg",
+    },
+    title: "Trekking in the Nilgiris",
+    description:
+      "Just completed an incredible trek through the Nilgiri Hills! The views from the top are absolutely stunning. Definitely worth the effort!",
+    image: "https://example.com/experience2.jpg",
+    date: "2024-03-09",
+    location: "Nilgiri Hills, Ooty, Tamil Nadu, India",
+    likes: 32,
+    comments: [
+      {
+        id: 3,
+        user: {
+          id: 5,
+          username: "mountainlover101",
+          avatar: "https://example.com/avatar5.jpg",
+        },
+        comment:
+          "I've been wanting to do that trek for ages! How difficult was it?",
+        date: "2024-03-10",
+      },
+      {
+        id: 4,
+        user: {
+          id: 6,
+          username: "adventureseeker2020",
+          avatar: "https://example.com/avatar6.jpg",
+        },
+        comment:
+          "The trek is challenging but the views make it totally worth it!",
+        date: "2024-03-11",
+      },
+    ],
+  },
+  {
+    id: 2,
+    user: {
+      id: 4,
+      username: "hiker567",
+      avatar: "https://example.com/avatar4.jpg",
+    },
+    title: "Trekking in the Nilgiris",
+    description:
+      "Just completed an incredible trek through the Nilgiri Hills! The views from the top are absolutely stunning. Definitely worth the effort!",
+    image: "https://example.com/experience2.jpg",
+    date: "2024-03-09",
+    location: "Nilgiri Hills, Ooty, Tamil Nadu, India",
+    likes: 32,
+    comments: [
+      {
+        id: 3,
+        user: {
+          id: 5,
+          username: "mountainlover101",
+          avatar: "https://example.com/avatar5.jpg",
+        },
+        comment:
+          "I've been wanting to do that trek for ages! How difficult was it?",
+        date: "2024-03-10",
+      },
+      {
+        id: 4,
+        user: {
+          id: 6,
+          username: "adventureseeker2020",
+          avatar: "https://example.com/avatar6.jpg",
+        },
+        comment:
+          "The trek is challenging but the views make it totally worth it!",
+        date: "2024-03-11",
+      },
+    ],
+  },
 ];

@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 export const Navbar = () => {
   return (
-    <>
+    <div className=" border-2 border-slate-100 z-20">
       <div className="navbar bg-base-100">
         <div className="navbar-start">
           <a className="btn btn-ghost text-xl">Wander Wise</a>
@@ -20,6 +20,6 @@ export const Navbar = () => {
           </NavLink>
         </div>
       </div>
-    </>
+    </div>
   );
 };

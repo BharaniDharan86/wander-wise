@@ -10,11 +10,7 @@ export async function loginApi(userCredentials) {
     credentials: "include",
   });
 
-  console.log(response);
-
   const data = await response.json();
-
-  console.log(data);
 
   if (data.status === "Failed")
     throw new Error("User not found please provide valid email Id");

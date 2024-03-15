@@ -28,6 +28,12 @@ const experienceSchema = new mongoose.Schema(
   }
 );
 
+experienceSchema.virtual("replies", {
+  ref: "Replies",
+  foreignField: "experience",
+  localField: "_id",
+});
+
 const Experience = mongoose.model("Experience", experienceSchema);
 
 export default Experience;

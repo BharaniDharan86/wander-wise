@@ -5,7 +5,6 @@ import { InputError } from "../../components/InputError";
 import { useMutation } from "@tanstack/react-query";
 import { loginApi } from "../../services/apiAuth";
 import { toast } from "react-hot-toast";
-import { useCookies } from "react-cookie";
 import { Spinner } from "./../../ui/Spinner";
 export const Login = () => {
   const { register, handleSubmit, formState } = useForm({
@@ -15,14 +14,12 @@ export const Login = () => {
     },
   });
 
-  const [cookies] = useCookies();
-
   const { errors } = formState;
   const navigate = useNavigate();
 
   const { mutate, isPending } = useMutation({
     mutationFn: (userCredentials) => loginApi(userCredentials),
-    onSuccess: (data) => {
+    onSuccess: () => {
       navigate("/experience");
     },
     onError: (err) => {

@@ -1,6 +1,7 @@
 import catchAsyncErr from "../../server/utils/catchAsyncErr.js";
 import Replies from "../../server/models/repliesModel.js";
 import AppError from "../../server/utils/appError.js";
+import User from "../../server/models/userModel.js";
 
 export const postReply = catchAsyncErr(async (req, res, next) => {
   const { id: postId } = req.params;
@@ -10,8 +11,20 @@ export const postReply = catchAsyncErr(async (req, res, next) => {
     user: userId,
     experience: postId,
     description: req.body.description,
-    datePosted: req.body.datePosted,
   });
+
+  await User.findByIdAndUpdate(
+    userId,
+    {
+      $addToSet: {
+        repliedPosts: newReplies._id,
+      },
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
 
   if (!newReplies) next(new AppError("Failed to post Reply", 404));
 

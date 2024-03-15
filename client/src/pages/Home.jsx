@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import HeroImg from "../images/Hero4.svg";
 
+
 export const Home = () => {
   return (
     <div>

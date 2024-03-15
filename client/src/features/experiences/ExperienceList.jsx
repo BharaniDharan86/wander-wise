@@ -1,17 +1,17 @@
 /* eslint-disable react/prop-types */
 
 import ExperienceItem from "./ExperienceItem";
-import useToken from "../../hooks/useToken";
 
-export const ExperienceList = ({ data }) => {
-  const token = useToken();
-
+export const ExperienceList = ({ data, userData }) => {
   return (
-    <ul>
-      {data.map((FD, ind) => {
+    <ul className="">
+      {data?.data?.map((FD) => {
         return (
-          <li key={ind} className="my-5">
-            <ExperienceItem FD={FD} />
+          <li
+            key={data?.data?._id}
+            className="my-5 border-2 border-slate-100 p-2"
+          >
+            <ExperienceItem FD={FD} userData={userData} />
           </li>
         );
       })}
