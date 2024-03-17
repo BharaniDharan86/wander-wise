@@ -89,3 +89,65 @@ export const deleteReply = catchAsyncErr(async (req, res, next) => {
   await Replies.findByIdAndDelete(id);
   return res.status(204);
 });
+
+export const likeReply = catchAsyncErr(async (req, res, next) => {
+  const { id } = req.params;
+  const userId = req.user._id;
+
+  const isAlreadyLiked = await Replies.exists({ _id: id, likes: userId });
+
+  let updatedPost;
+
+  if (isAlreadyLiked) {
+    updatedPost = await Replies.findByIdAndUpdate(
+      id,
+      {
+        $pull: {
+          likes: userId,
+        },
+        $inc: {
+          likeSCount: -1,
+        },
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    await User.findByIdAndUpdate(userId, {
+      $pull: {
+        likedPosts: id,
+      },
+    });
+
+    return res.status(200).json({
+      status: "success",
+      success: true,
+      message: "disliked",
+    });
+  } else {
+    updatedPost = await Replies.findByIdAndUpdate(
+      id,
+      {
+        $addToSet: { likes: userId },
+        $inc: { likesCount: 1 },
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    await User.findByIdAndUpdate(userId, {
+      $addToSet: {
+        likedPosts: id,
+      },
+    });
+    return res.status(200).json({
+      status: "success",
+      success: true,
+      message: "liked",
+    });
+  }
+});

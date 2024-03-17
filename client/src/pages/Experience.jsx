@@ -7,6 +7,7 @@ import readExperience from "../services/apiExperience";
 import useToken from "../hooks/useToken";
 import { Loader } from "../ui/Loader";
 import getUser from "../services/apiUser";
+import { NavLink } from "react-router-dom";
 
 export const Experience = () => {
   const token = useToken();
@@ -26,9 +27,12 @@ export const Experience = () => {
       <Navbar />
 
       <SearchBar />
-      <button className="bg-stone-900 hover:bg-stone-800 transition-all duration-150 w-full text-white font-semibold px-2 py-4 fixed left-0 bottom-0">
+      <NavLink
+        to="/post"
+        className="bg-stone-900 hover:bg-stone-800 transition-all duration-150 w-full text-white font-semibold px-2 py-4 fixed left-0 bottom-0"
+      >
         Share Your Travel Experience
-      </button>
+      </NavLink>
       <main className=" w-full flex items-start gap-2 justify-center px-2 py-10">
         <div className="w-[60%]">
           {isExperienceLoading || isUserLoading ? (

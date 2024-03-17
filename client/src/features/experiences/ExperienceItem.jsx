@@ -14,10 +14,11 @@ import PostReplies from "../replies/PostReplies";
 
 function ExperienceItem({ FD, userData }) {
   const [showComments, setShowComments] = useState(false);
-
   const likedPosts = userData.likedPosts;
+  const [isAlreadyLiked, setIsAlreadyLiked] = useState(
+    likedPosts.includes(FD._id)
+  );
 
-  const isAlreadyLiked = likedPosts.includes(FD._id);
   const token = useToken();
   const queryClient = useQueryClient();
 
@@ -27,10 +28,10 @@ function ExperienceItem({ FD, userData }) {
       queryClient.invalidateQueries({
         queryKey: ["experiences"],
       });
+      setIsAlreadyLiked((curr) => !curr);
     },
   });
 
-  console.log(FD);
   return (
     <>
       <div>

@@ -99,3 +99,16 @@ export async function deleteExperience(postId, token) {
 
   return response;
 }
+
+export async function likeReply(id, token) {
+  const request = await fetch(`${BASE_URL}replies/like/${id}`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const response = await request.json();
+
+  return response;
+}

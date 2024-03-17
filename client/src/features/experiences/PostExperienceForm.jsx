@@ -1,13 +1,28 @@
 import { useState } from "react";
-
+import { useMutation } from "@tanstack/react-query";
+import { postExperience } from "../../services/apiExperience";
+import useToken from "../../hooks/useToken";
+import { Spinner } from "../../ui/Spinner";
+import { toast } from "react-hot-toast";
 const PostExperienceForm = () => {
   const [location, setLocation] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
+  const token = useToken();
+  const { mutate, isPending } = useMutation({
+    mutationFn: () => postExperience({ location, title, description }, token),
+    onSuccess: () => {
+      toast.success("Posted Successfully");
+    },
+    onError: (err) => {
+      toast.error(err.message);
+    },
+  });
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Form submitted:", { location, title, description });
+    mutate();
   };
 
   return (
@@ -70,9 +85,10 @@ const PostExperienceForm = () => {
 
           <button
             type="submit"
-            className="w-full bg-stone-800 hover:bg-stone-600 text-white px-4 py-2 rounded-md focus:outline-none focus:ring focus:ring-stone-400 focus:ring-opacity-50 transition-all duration-300"
+            disabled={isPending}
+            className="w-full bg-stone-800 hover:bg-stone-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-md focus:outline-none focus:ring focus:ring-stone-400 focus:ring-opacity-50 transition-all duration-300"
           >
-            Post Experience
+            {isPending ? <Spinner /> : "Post Experience"}
           </button>
         </form>
       </div>

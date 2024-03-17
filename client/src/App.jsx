@@ -12,6 +12,7 @@ import { Toaster } from "react-hot-toast";
 import { ProtectedRoute } from "./pages/ProtectedRoute";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import PostExperienceForm from "./features/experiences/PostExperienceForm";
+import User from "./pages/User";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
   {
     path: "/post",
     element: <PostExperienceForm />,
+  },
+  {
+    path: "/user",
+    element: <User />,
   },
 ]);
 

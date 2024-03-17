@@ -15,6 +15,12 @@ const repliesSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    likes: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+      },
+    ],
     datePosted: {
       type: Date,
       default: Date.now(),
@@ -24,7 +30,6 @@ const repliesSchema = new mongoose.Schema(
     toJSON: true,
     toObject: true,
     timestamps: true,
-  
   }
 );
 
